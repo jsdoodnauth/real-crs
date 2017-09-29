@@ -1,5 +1,5 @@
 {
-    "presets": ["es2015"],
+    "presets": ["node6"],
     "plugins": [
       "transform-class-properties"
     ]
