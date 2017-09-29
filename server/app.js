@@ -4,7 +4,7 @@
 
 'use strict';
 
-import express from 'express';
+const express = require("express");
 import mongoose from 'mongoose';
 mongoose.Promise = require('bluebird');
 import config from './config/environment';
