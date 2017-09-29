@@ -27,3 +27,13 @@ Run `gulp build` for building and `gulp serve` for preview.
 
 Running `npm test` will run the unit tests with karma.
 =======
+
+## Heroku 
+
+###Pushing to Heroku
+
+1. Navigate to `cd dist`
+2. Run `gulp build`
+3. Run `gulp buildcontrol:heroku`
+
+Ref: [Heroku](https://angular-fullstack.github.io/generators/heroku/#setup)
