@@ -2,117 +2,119 @@
 	<div class='row'>
 		<div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
 			<h2>Create Contact</h2>
-			<form class="form-horizontal">
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputName">Name</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputName" ng-model="contactCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputCompany">Company</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputCompany" ng-model="contactCtrl.inputCompany" aria-describedby="Company" placeholder="Company Name">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputDOB">Date of Birth</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputDOB" ng-model="contactCtrl.inputDOB" aria-describedby="DOB" placeholder="Date of Birth (YYYY-MM-DD)">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputSex">Sex</label>
-			    <div class="col-md-10">
-			    <select class="form-control span3" id="inputSex" ng-model="contactCtrl.inputSex">
-			      <option>Male</option>
-			      <option>Female</option>
-			    </select>
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputEmail">Email</label>
-			    <div class="col-md-10">
-			    <input type="email" class="form-control" id="inputEmail" ng-model="contactCtrl.inputEmail" aria-describedby="Email" placeholder="Email">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputPhone">Phone</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputPhone" ng-model="contactCtrl.inputPhone" aria-describedby="Phone" placeholder="Phone">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputOccupation">Occupation</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputOccupation" ng-model="contactCtrl.inputOccupation" aria-describedby="Occupation" placeholder="Occupation">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputIncome">Income</label>
-			    <div class="col-md-10">
-			    <input type="text" class="form-control" id="inputIncome" ng-model="contactCtrl.inputIncome" aria-describedby="Income" placeholder="Income">
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputLeadType">Lead Type</label>
-			    <div class="col-md-10">
-			    <select class="form-control span3" id="inputLeadType" ng-model="contactCtrl.inputLeadType">
-			      <option>Buyer</option>
-			      <option>Seller</option>
-			      <option>Rent</option>
-			      <option>Lease</option>
-			      <option>Pitch/Demo</option>
-			    </select>
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputLeadStatus">Lead Status</label>
-			    <div class="col-md-10">
-			    <select class="form-control span3" id="inputLeadStatus" ng-model="contactCtrl.inputLeadStatus">
-			      <option>New</option>
-			      <option>Qualify</option>
-			      <option>Watch</option>
-			      <option>Hot</option>
-			      <option>Growth</option>
-			      <option>Pending</option>
-			      <option>Closed</option>
-			    </select>
-			  	</div>
-			  </div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputRating">Rating</label>
-			    <div class="col-md-10">
-						<label class="radio-inline">
-							<input type="radio" name="inputRating" id="inputRating1" ng-model="contactCtrl.inputRating" value="1"> 1
-						</label>					
-						<label class="radio-inline">
-							<input type="radio" name="inputRating" id="inputRating2" ng-model="contactCtrl.inputRating" value="2"> 2
-						</label>					
-						<label class="radio-inline">
-							<input type="radio" name="inputRating" id="inputRating3" ng-model="contactCtrl.inputRating" value="3"> 3
-						</label>					
-						<label class="radio-inline">
-							<input type="radio" name="inputRating" id="inputRating4" ng-model="contactCtrl.inputRating" value="4"> 4
-						</label>					
-						<label class="radio-inline">
-							<input type="radio" name="inputRating" id="inputRating5" ng-model="contactCtrl.inputRating" value="5"> 5
-						</label>
+      <div class='well'>
+				<form class="form-horizontal">
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputName">Name</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputName" ng-model="contactCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputCompany">Company</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputCompany" ng-model="contactCtrl.inputCompany" aria-describedby="Company" placeholder="Company Name">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputDOB">Date of Birth</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputDOB" ng-model="contactCtrl.inputDOB" aria-describedby="DOB" placeholder="Date of Birth (YYYY-MM-DD)">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputSex">Sex</label>
+				    <div class="col-md-10">
+				    <select class="form-control span3" id="inputSex" ng-model="contactCtrl.inputSex">
+				      <option>Male</option>
+				      <option>Female</option>
+				    </select>
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputEmail">Email</label>
+				    <div class="col-md-10">
+				    <input type="email" class="form-control" id="inputEmail" ng-model="contactCtrl.inputEmail" aria-describedby="Email" placeholder="Email">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputPhone">Phone</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputPhone" ng-model="contactCtrl.inputPhone" aria-describedby="Phone" placeholder="Phone">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputOccupation">Occupation</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputOccupation" ng-model="contactCtrl.inputOccupation" aria-describedby="Occupation" placeholder="Occupation">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputIncome">Income</label>
+				    <div class="col-md-10">
+				    <input type="text" class="form-control" id="inputIncome" ng-model="contactCtrl.inputIncome" aria-describedby="Income" placeholder="Income">
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputLeadType">Lead Type</label>
+				    <div class="col-md-10">
+				    <select class="form-control span3" id="inputLeadType" ng-model="contactCtrl.inputLeadType">
+				      <option>Buyer</option>
+				      <option>Seller</option>
+				      <option>Rent</option>
+				      <option>Lease</option>
+				      <option>Pitch/Demo</option>
+				    </select>
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputLeadStatus">Lead Status</label>
+				    <div class="col-md-10">
+				    <select class="form-control span3" id="inputLeadStatus" ng-model="contactCtrl.inputLeadStatus">
+				      <option>New</option>
+				      <option>Qualify</option>
+				      <option>Watch</option>
+				      <option>Hot</option>
+				      <option>Growth</option>
+				      <option>Pending</option>
+				      <option>Closed</option>
+				    </select>
+				  	</div>
+				  </div>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputRating">Rating</label>
+				    <div class="col-md-10">
+							<label class="radio-inline">
+								<input type="radio" name="inputRating" id="inputRating1" ng-model="contactCtrl.inputRating" value="1"> 1
+							</label>					
+							<label class="radio-inline">
+								<input type="radio" name="inputRating" id="inputRating2" ng-model="contactCtrl.inputRating" value="2"> 2
+							</label>					
+							<label class="radio-inline">
+								<input type="radio" name="inputRating" id="inputRating3" ng-model="contactCtrl.inputRating" value="3"> 3
+							</label>					
+							<label class="radio-inline">
+								<input type="radio" name="inputRating" id="inputRating4" ng-model="contactCtrl.inputRating" value="4"> 4
+							</label>					
+							<label class="radio-inline">
+								<input type="radio" name="inputRating" id="inputRating5" ng-model="contactCtrl.inputRating" value="5"> 5
+							</label>
+						</div>
 					</div>
-				</div>
-			  <div class="form-group">
-			    <label  class="col-md-2 control-label" for="inputNotes">Notes</label>
-			    <div class="col-md-10">
-				  <textarea rows="3" class="form-control" id="inputNotes" ng-model="contactCtrl.inputNotes" aria-describedby="Notes" placeholder="Notes"></textarea>
-			  	</div>
-			  </div>  
-			  <div class="form-group">
-			    <div class="col-md-12">
-			    	<input type="hidden" ng-value="{{ contactCtrl.getCurrentUser().name }}" ng-model="contactCtrl.username" />
-			  		<button type="submit" class="btn btn-primary pull-right" ng-click="contactCtrl.addPerson()">Submit</button>
-			  	</div>
-			  </div>
-			</form>
+				  <div class="form-group">
+				    <label  class="col-md-2 control-label" for="inputNotes">Notes</label>
+				    <div class="col-md-10">
+					  <textarea rows="3" class="form-control" id="inputNotes" ng-model="contactCtrl.inputNotes" aria-describedby="Notes" placeholder="Notes"></textarea>
+				  	</div>
+				  </div>  
+				  <div class="form-group">
+				    <div class="col-md-12">
+				    	<input type="hidden" ng-value="{{ contactCtrl.getCurrentUser().name }}" ng-model="contactCtrl.username" />
+				  		<button type="submit" class="btn btn-primary pull-right" ng-click="contactCtrl.addPerson()">Submit</button>
+				  	</div>
+				  </div>
+				</form>
+			</div>
 		</div>
 	</div>
 </div>

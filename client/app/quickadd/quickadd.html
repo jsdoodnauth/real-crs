@@ -2,47 +2,49 @@
   <div class='row'>
     <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
       <h2>Quick Note</h2>
-      <form class="form-horizontal">
-        <div class="form-group">
-         <label  class="col-md-2 control-label" for="inputName">Name</label>
-          <div class="col-md-10">
-            <input type="text" class="form-control" id="inputName" ng-model="quickaddCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
+      <div class='well'>
+        <form class="form-horizontal">
+          <div class="form-group">
+           <label  class="col-md-2 control-label" for="inputName">Name</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="inputName" ng-model="quickaddCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
+            </div>
           </div>
-        </div>
 
-        <div class="form-group">
-          <label  class="col-md-2 control-label" for="inputNotes">Notes</label>
-          <div class="col-md-10">
-            <textarea rows="3" class="form-control" id="inputNotes" ng-model="quickaddCtrl.inputNotes" aria-describedby="Notes" placeholder="Notes"></textarea>
+          <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputNotes">Notes</label>
+            <div class="col-md-10">
+              <textarea rows="3" class="form-control" id="inputNotes" ng-model="quickaddCtrl.inputNotes" aria-describedby="Notes" placeholder="Notes"></textarea>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label  class="col-md-2 control-label" for="inputLeadType">Lead Type</label>
-          <div class="col-md-10">
-            <label class="radio-inline">
-              <input type="radio" name="inputLeadType" id="inputLeadType1" ng-model="quickaddCtrl.inputLeadType" value="Buyer"> Buyer
-            </label>          
-            <label class="radio-inline">
-              <input type="radio" name="inputLeadType" id="inputLeadType2" ng-model="quickaddCtrl.inputLeadType" value="Seller"> Seller
-            </label>          
-            <label class="radio-inline">
-              <input type="radio" name="inputLeadType" id="inputLeadType3" ng-model="quickaddCtrl.inputLeadType" value="Renter"> Renter
-            </label>
-            <label class="radio-inline">
-              <input type="radio" name="inputLeadType" id="inputLeadType4" ng-model="quickaddCtrl.inputLeadType" value="Lease"> Lease
-            </label>          
-            <label class="radio-inline">
-              <input type="radio" name="inputLeadType" id="inputLeadType5" ng-model="quickaddCtrl.inputLeadType" value="Pitch/Demo"> Pitch/Demo
-            </label>
+          <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputLeadType">Lead Type</label>
+            <div class="col-md-10">
+              <label class="radio-inline">
+                <input type="radio" name="inputLeadType" id="inputLeadType1" ng-model="quickaddCtrl.inputLeadType" value="Buyer"> Buyer
+              </label>          
+              <label class="radio-inline">
+                <input type="radio" name="inputLeadType" id="inputLeadType2" ng-model="quickaddCtrl.inputLeadType" value="Seller"> Seller
+              </label>          
+              <label class="radio-inline">
+                <input type="radio" name="inputLeadType" id="inputLeadType3" ng-model="quickaddCtrl.inputLeadType" value="Renter"> Renter
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputLeadType" id="inputLeadType4" ng-model="quickaddCtrl.inputLeadType" value="Lease"> Lease
+              </label>          
+              <label class="radio-inline">
+                <input type="radio" name="inputLeadType" id="inputLeadType5" ng-model="quickaddCtrl.inputLeadType" value="Pitch/Demo"> Pitch/Demo
+              </label>
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <div class="col-md-12">
-            <input type="hidden" ng-value="{{ quickaddCtrl.getCurrentUser().name }}" ng-model="quickaddCtrl.username" />
-            <button type="submit" class="btn btn-primary pull-right" ng-click="quickaddCtrl.addNote()">Submit</button>
+          <div class="form-group">
+            <div class="col-md-12">
+              <input type="hidden" ng-value="{{ quickaddCtrl.getCurrentUser().name }}" ng-model="quickaddCtrl.username" />
+              <button type="submit" class="btn btn-primary pull-right" ng-click="quickaddCtrl.addNote()">Submit</button>
+            </div>
           </div>
-        </div>
-      </form>
+        </form>
+      </div>
     </div>
   </div>
 </div>
