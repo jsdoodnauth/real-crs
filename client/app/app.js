@@ -7,7 +7,7 @@ import ngResource from 'angular-resource';
 import ngSanitize from 'angular-sanitize';
 
 import uiRouter from 'angular-ui-router';
-
+import 'angular-socket-io';
 import 'angular-validation-match';
 
 import {
@@ -23,11 +23,14 @@ import footer from '../components/footer/footer.component';
 import main from './main/main.component';
 import constants from './app.constants';
 import util from '../components/util/util.module';
+import socket from '../components/socket/socket.service';
+import quickadd from './quickadd/quickadd.component';
+import triage from './triage/triage.component';
 
 import './app.scss';
 
-angular.module('realCrsApp', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, account, admin,
-  'validation.match', navbar, footer, main, constants, util, contact
+angular.module('realCrsApp', [ngCookies, ngResource, ngSanitize, uiRouter, _Auth, account, admin, 'btford.socket-io',
+  'validation.match', navbar, footer, main, constants, socket, util, contact, quickadd, triage
 ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

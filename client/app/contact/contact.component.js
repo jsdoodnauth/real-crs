@@ -7,36 +7,47 @@ import routes from './contact.routes';
 
 export class ContactComponent {
   /*@ngInject*/
-  constructor() {
+  constructor($http, $scope, socket, Auth) {
     this.$http = $http;
     this.socket = socket;
+    this.getCurrentUser = Auth.getCurrentUserSync;
+    
 
     $scope.$on('$destroy', function() {
-      socket.unsyncUpdates('keyword');
+      socket.unsyncUpdates('person');
     });
   }
 
-/*
   $onInit() {
-    this.$http.get('/api/keywords')
+    this.$http.get('/api/persons')
       .then(response => {
-        this.keywordCollection = response.data;
-        this.socket.syncUpdates('keyword', this.keywordCollection);
+        this.personCollection = response.data;
+        this.socket.syncUpdates('person', this.personCollection);
       });
   }
 
-  addKeyword() {
-    console.log('addKeyword()');
-    if(this.keywordName) {
-      this.$http.post('/api/keywords', {
-        name: this.keywordName,
-        category: this.keywordCategory
+  addPerson() {
+    if(this.inputName) {
+      this.$http.post('/api/persons', {
+        name: this.inputName,
+        companyName: this.inputCompany,
+        dob: this.inputDOB,
+        sex: this.inputSex,
+        email: this.inputEmail,
+        phone: this.inputPhone,
+        occupation: this.inputOccupation,
+        income: this.inputIncome,
+        leadType: this.inputLeadType,
+        leadStatus: this.inputLeadStatus,
+        notes: this.inputNotes,
+        rating: this.inputRating,
+        userCreated: this.username,
+        dateCreated: new Date(),
+        userModified: this.username,
+        dateModified: new Date()
       });
-      this.keywordName = '';
-      this.keywordCategory = '';
     }
   }
-*/
 }
 
 export default angular.module('realCrsApp.contact', [uiRouter])

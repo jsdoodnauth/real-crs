@@ -1,0 +1,14 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
+      <h2>Triage</h2>
+
+        <div class="list-group">
+          <a href="#" class="list-group-item" ng-repeat="triageItem in triageCtrl.triageCollection">
+            <h4 class="list-group-item-heading">{{triageItem.name}} <span class="label pull-right" ng-class="(triageItem.leadType=='Buyer' ? 'label-success' : 'label-danger')">{{triageItem.leadType}}</span></h4>
+            <p class="list-group-item-text">{{triageItem.notes}}</p>
+          </a>
+        </div>
+    </div>
+  </div>
+</div>
