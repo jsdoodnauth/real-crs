@@ -16,7 +16,8 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
-  require('../api/person/person.socket').register(socket);
+  require('../api/contact/contact.socket').register(socket);
+  require('../api/thing/thing.socket').register(socket);
 }
 
 export default function(socketio) {

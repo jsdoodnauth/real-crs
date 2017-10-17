@@ -8,11 +8,8 @@ import routing from './account.routes';
 import login from './login';
 import settings from './settings';
 import signup from './signup';
-import oauthButtons from '../../components/oauth-buttons';
 
-export default angular.module('realCrsApp.account', [uiRouter, login, settings, signup,
-  oauthButtons
-])
+export default angular.module('realCrsApp.account', [uiRouter, login, settings, signup])
   .config(routing)
   .run(function($rootScope) {
     'ngInject';

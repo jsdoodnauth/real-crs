@@ -1,14 +1,14 @@
 /**
- * Person model events
+ * Contact model events
  */
 
 'use strict';
 
 import {EventEmitter} from 'events';
-var PersonEvents = new EventEmitter();
+var ContactEvents = new EventEmitter();
 
 // Set max event listeners (0 == unlimited)
-PersonEvents.setMaxListeners(0);
+ContactEvents.setMaxListeners(0);
 
 // Model events
 var events = {
@@ -17,19 +17,19 @@ var events = {
 };
 
 // Register the event emitter to the model events
-function registerEvents(Person) {
+function registerEvents(Contact) {
   for(var e in events) {
     let event = events[e];
-    Person.post(e, emitEvent(event));
+    Contact.post(e, emitEvent(event));
   }
 }
 
 function emitEvent(event) {
   return function(doc) {
-    PersonEvents.emit(event + ':' + doc._id, doc);
-    PersonEvents.emit(event, doc);
+    ContactEvents.emit(event + ':' + doc._id, doc);
+    ContactEvents.emit(event, doc);
   };
 }
 
 export {registerEvents};
-export default PersonEvents;
+export default ContactEvents;

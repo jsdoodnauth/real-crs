@@ -80,6 +80,6 @@ function Socket(socketFactory) {
   };
 }
 
-export default angular.module('newsReaderApp.socket', [])
+export default angular.module('realCrsApp.socket', [])
   .factory('socket', Socket)
   .name;

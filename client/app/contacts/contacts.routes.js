@@ -3,8 +3,8 @@
 export default function($stateProvider) {
   'ngInject';
   $stateProvider
-    .state('quickadd', {
-      url: '/quickadd',
-      template: '<quickadd></quickadd>'
+    .state('contacts', {
+      url: '/contacts',
+      template: '<contacts></contacts>'
     });
 }

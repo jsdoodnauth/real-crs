@@ -26,21 +26,3 @@ Run `gulp build` for building and `gulp serve` for preview.
 ## Testing
 
 Running `npm test` will run the unit tests with karma.
-=======
-
-## Development
-
-[Boostrap 3.3](https://getbootstrap.com/docs/3.3/)
-Bootstrap Theme (Flatly): https://www.bootstrap-live-customizer.com/
-
-
-
-## Heroku 
-
-###Pushing to Heroku
-
-1. Navigate to `cd dist`
-2. Run `gulp build`
-3. Run `gulp buildcontrol:heroku`
-
-Ref: [Heroku](https://angular-fullstack.github.io/generators/heroku/#setup)

@@ -4,7 +4,7 @@
 
 'use strict';
 
-import PersonEvents from './person.events';
+import ThingEvents from './thing.events';
 
 // Model events to emit
 var events = ['save', 'remove'];
@@ -13,9 +13,9 @@ export function register(socket) {
   // Bind model events to socket events
   for(var i = 0, eventsLength = events.length; i < eventsLength; i++) {
     var event = events[i];
-    var listener = createListener(`person:${event}`, socket);
+    var listener = createListener(`thing:${event}`, socket);
 
-    PersonEvents.on(event, listener);
+    ThingEvents.on(event, listener);
     socket.on('disconnect', removeListener(event, listener));
   }
 }
@@ -29,6 +29,6 @@ function createListener(event, socket) {
 
 function removeListener(event, listener) {
   return function() {
-    PersonEvents.removeListener(event, listener);
+    ThingEvents.removeListener(event, listener);
   };
 }

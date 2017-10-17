@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Component: ContactComponent', function() {
+describe('Component: ContactsComponent', function() {
   // load the controller's module
-  beforeEach(module('realCrsApp.contact'));
+  beforeEach(module('realCrsApp.contacts'));
 
-  var ContactComponent;
+  var ContactsComponent;
 
   // Initialize the controller and a mock scope
   beforeEach(inject(function($componentController) {
-    ContactComponent = $componentController('contact', {});
+    ContactsComponent = $componentController('contacts', {});
   }));
 
   it('should ...', function() {

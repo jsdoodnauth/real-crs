@@ -48,8 +48,8 @@ module.exports = function makeWebpackConfig(options) {
                 'angular-resource',
 
                 'angular-sanitize',
-
-
+                'angular-socket-io',
+                'angular-ui-bootstrap',
                 'angular-ui-router',
                 'lodash'
             ]
