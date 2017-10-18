@@ -1,15 +1,22 @@
 <div class='container'>
   <div class='row'>
     <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
-      <h2>Triage</h2>      
-        <div class="list-group">
-          <a href="#" class="list-group-item" ng-repeat="triageItem in triageCtrl.messageCollection">
-            <h4 class="list-group-item-heading">{{triageItem.contactName}}</h4>
-            <p class="list-group-item-text">{{triageItem.message}}
-            	<small>From: {{triageItem.agentName}}</small>
-            </p>
-          </a>
+      <h2>Triage</h2>        
+      <div class="panel panel-default"  ng-repeat="triageItem in triageCtrl.messageCollection">
+        <div class="panel-heading">
+          <h3 class="panel-title">{{triageItem.contactName}}<small class='pull-right'>From {{triageItem.agentName}} at {{triageItem.dateCreated}}</small></h3>
         </div>
+        <div class="panel-body">
+          {{triageItem.message}}
+        </div>
+        <div class="panel-footer">
+          <div style='text-align:right;'>
+            <button type="submit" class="btn btn-success" ng-click="triageCtrl.openContact(triageItem.contactID)">Open Contact</button>
+            <button type="button" class="btn btn-primary" ng-click="triageCtrl.closeItem(triageItem)">Mark as Done</button>
+          </div>
+        </div>
+      </div>
+      <contacts></contacts>
     </div>
   </div>
 </div>

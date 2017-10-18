@@ -10,6 +10,7 @@ export class QuickaddComponent {
   constructor($http, $scope, Auth) {
     this.$http = $http;
     this.getCurrentUser = Auth.getCurrentUserSync;
+    this.contactCollection;
   }
 
   alerts = [
@@ -38,6 +39,31 @@ export class QuickaddComponent {
       });
     }
   }
+
+  getContacts(val) {
+    if (!this.contactCollection) {
+      console.log('call');
+      this.$http.get('/api/contacts/filter')
+        .then(response => {
+          this.contactCollection = response.data;
+        });
+    }
+
+
+    /*
+    return this.$http.get('/api/contacts', {
+      params: {
+        address: val,
+        sensor: false
+      }
+    }).then(function(response){
+      return response.data.results.map(function(item){
+        return item.formatted_address;
+      });
+    });
+    */
+  }
+
 }
 
 export default angular.module('realCrsApp.quickadd', [uiRouter])

@@ -93,6 +93,10 @@ export class ContactsComponent {
         userModified: this.getCurrentUser().name,
         dateModified: new Date(),
         active: true
+      })
+      .then(response => {
+        this.socket.syncUpdates('contact', this.contactCollection);
+        this.viewModeController(1);
       });
     }
   }

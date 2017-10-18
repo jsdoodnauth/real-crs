@@ -2,6 +2,7 @@
  * Using Rails-like standard naming convention for endpoints.
  * GET     /api/contacts              ->  index
  * POST    /api/contacts              ->  create
+ * GET    /api/contacts/filter        ->  filter
  * GET     /api/contacts/:id          ->  show
  * PUT     /api/contacts/:id          ->  upsert
  * PATCH   /api/contacts/:id          ->  patch
@@ -114,5 +115,15 @@ export function destroy(req, res) {
   return Contact.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
+    .catch(handleError(res));
+}
+
+// Gets a filterable list of Contacts
+export function filter(req, res) {
+  return Contact.find().exec()
+    .then(res => {
+      console.log('filter');
+      respondWithResult(res);    
+      })
     .catch(handleError(res));
 }

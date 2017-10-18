@@ -18,6 +18,14 @@ export class TriageComponent {
         //this.socket.syncUpdates('messages', this.messageCollection);
       });
   }
+
+  openContact(contact) {
+
+  }
+
+  closeItem(triageItem) {
+    
+  }
 }
 
 export default angular.module('realCrsApp.triage', [uiRouter])
