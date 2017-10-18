@@ -17,11 +17,12 @@ var ContactSchema = new mongoose.Schema({
   leadStatus: String,
   notes: String,
   rating: Number,
-  agentName: String,
-  userCreated: Number,
+  agentAssigned: String,
+  userCreated: String,
   dateCreated: Date,
-  userModified: Number,
-  dateModified: Date
+  userModified: String,
+  dateModified: Date,
+  active: Boolean
 });
 
 registerEvents(ContactSchema);

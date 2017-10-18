@@ -5,21 +5,23 @@
       <button type="button" class="btn btn-primary btn-sm pull-right glyphicon glyphicon-plus" ng-click="contactsCtrl.addContactForm()"></button></h2>
       <br />
       <div class='well'>
-        <table class="table table-striped">
+        <table class="table table-striped table-condensed">
           <thead>
             <tr>
               <th>&nbsp;</th>
               <th>Name</th>
               <th>Phone</th>
+              <th>Assigned To</th>
               <th>&nbsp;</th>
             </tr>
           </thead>
           <tbody>
             <tr ng-repeat="contact in contactsCtrl.contactCollection">
-              <td><button ng-click="contactsCtrl.editContactForm(contact)" class='btn btn-primary btn-sm glyphicon glyphicon-pencil'></button></td>
+              <td><button ng-click="contactsCtrl.editContactForm(contact)" class='btn btn-primary btn-xs glyphicon glyphicon-pencil'></button></td>
               <td>{{contact.firstName}} {{contact.lastName}}</td>
               <td>{{contact.phone}}</td>
-              <td><button ng-click="contactsCtrl.deleteContact(contact)" class='btn btn-danger btn-sm pull-right glyphicon glyphicon-remove'></button></td>
+              <td>{{contact.agentAssigned}}</td>
+              <td><button ng-click="contactsCtrl.deleteContactClick(contact)" class='btn btn-danger btn-xs pull-right glyphicon glyphicon-remove'></button></td>
             </tr>
           </tbody>
         </table>
@@ -31,6 +33,7 @@
       <h2>{{contactsCtrl.editMode ? 'Edit' : 'Create'}} Contact</h2>
       <div class='well'>
         <form class="form-horizontal">
+          <input type="hidden" id="_id" ng-model="contactsCtrl.item._id" />
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputFirstName">First Name</label>
             <div class="col-md-10">
@@ -115,6 +118,14 @@
             </div>
           </div>
           <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputAgentAssigned">Agent Assigned</label>
+            <div class="col-md-10">
+            <select class="form-control span3" id="inputAgentAssigned" ng-model="contactsCtrl.item.agentAssigned">
+              <option>Hussein Kabani</option>
+            </select>
+            </div>
+          </div>
+          <div class="form-group">
             <label  class="col-md-2 control-label" for="inputRating">Rating</label>
             <div class="col-md-10">
               <label class="radio-inline">
@@ -142,7 +153,6 @@
           </div>  
           <div class="form-group">
             <div class="col-md-12">
-              <input type="hidden" ng-value="{{ contactsCtrl.getCurrentUser().name }}" ng-model="contactsCtrl.username" />
               <div class='pull-right'>
                 <button type="submit" class="btn btn-success" ng-click="contactsCtrl.editMode ? contactsCtrl.editContact() : contactsCtrl.addContact()">{{contactsCtrl.editMode ? 'Save' : 'Create'}}</button>
                 <button type="button" class="btn btn-primary" ng-click="contactsCtrl.cancelForm()">Cancel</button>
@@ -154,11 +164,3 @@
     </div>
   </div>
 </div>
-<script type="text/ng-template" id="stackedModal.html">
-    <div class="modal-header">
-        <h3 class="modal-title" id="modal-title-{{name}}">The {{name}} modal!</h3>
-    </div>
-    <div class="modal-body" id="modal-body-{{name}}">
-        Having multiple modals open at once is probably bad UX but its technically possible.
-    </div>
-</script>

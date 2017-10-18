@@ -1,0 +1,55 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
+      <h2>Quick Message</h2>
+      <div class="alert alert-success alert-dismissible" role="alert" ng-hide='true'>
+      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      	Message saved successfully 
+      </div>
+      <div class='well'>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputNotes">Message</label>
+            <div class="col-md-10">
+              <textarea rows="3" class="form-control" id="inputMessage" ng-model="quickaddCtrl.inputMessage" aria-describedby="Message" placeholder="Message"></textarea>
+            </div>
+          </div>
+          <div class="form-group">
+           <label  class="col-md-2 control-label" for="inputName">Contact</label>
+            <div class="col-md-10">
+              <input type="text" class="form-control" id="inputName" ng-model="quickaddCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
+            </div>
+          </div>
+          <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputFollowup">Follow-up (days)</label>
+            <div class="col-md-10">
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup1" ng-model="quickaddCtrl.inputFollowup" value="1"> 1
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup2" ng-model="quickaddCtrl.inputFollowup" value="2"> 2
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup3" ng-model="quickaddCtrl.inputFollowup" value="5"> 5
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup4" ng-model="quickaddCtrl.inputFollowup" value="10"> 10
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup4" ng-model="quickaddCtrl.inputFollowup" value="15"> 15
+              </label>
+              <label class="radio-inline">
+                <input type="radio" name="inputFollowup" id="inputFollowup5" ng-model="quickaddCtrl.inputFollowup" value="30"> 30
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-md-12">
+              <button type="submit" class="btn btn-primary pull-right" ng-click="quickaddCtrl.addMessage()">Send</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

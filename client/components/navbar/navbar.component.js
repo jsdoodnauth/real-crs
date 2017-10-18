@@ -8,7 +8,6 @@ export class NavbarComponent {
     title: 'Home',
     state: 'main'
   },
-  /*
   {
     title: 'Quick Note',
     state: 'quickadd'
@@ -16,7 +15,7 @@ export class NavbarComponent {
   {
     title: 'Triage',
     state: 'triage'
-  },*/
+  },
   {
     title: 'Contacts',
     state: 'contacts'

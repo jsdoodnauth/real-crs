@@ -7,12 +7,11 @@ import routes from './contacts.routes';
 
 export class ContactsComponent {
   /*@ngInject*/
-  constructor($http, $scope, socket, Auth, $filter, Modal, $uibModal) {
+  constructor($http, $scope, socket, Auth, $filter, Modal) {
     this.$http = $http;
     this.socket = socket;
     this.$filter = $filter;
     this.Modal = Modal;
-    this.$uibModal = $uibModal;
     this.getCurrentUser = Auth.getCurrentUserSync;
     this.editMode = false;    
     this.viewModeController(1);
@@ -25,7 +24,8 @@ export class ContactsComponent {
   $onInit() {
     this.$http.get('/api/contacts')
       .then(response => {
-        this.contactCollection = response.data;
+        this.coll = response.data;
+        this.contactCollection = this.coll.filter((coll) => coll.active == true);
         this.socket.syncUpdates('contact', this.contactCollection);
       });
   }
@@ -40,9 +40,8 @@ export class ContactsComponent {
   }  
 
   editContact(contact) {
-    console.log('editContact()');
     if(this.item.firstName && this.item.lastName) {
-      this.$http.post('/api/contacts/'  + contact._id, {
+      this.$http.put('/api/contacts/'  + this.item._id, {
         firstName: this.item.firstName,
         lastName: this.item.lastName,
         companyName: this.item.companyName,
@@ -56,11 +55,13 @@ export class ContactsComponent {
         leadStatus: this.item.leadStatus,
         notes: this.item.notes,
         rating: this.item.rating,
-        agentName: this.item.agentname,
-        userCreated: this.username,
-        dateCreated: new Date(),
-        userModified: this.username,
+        agentAssigned: this.item.agentAssigned,
+        userModified: this.getCurrentUser().name,
         dateModified: new Date()
+      })
+      .then(response => {
+        this.socket.syncUpdates('contact', this.contactCollection);
+        this.viewModeController(1);
       });
     }
   }
@@ -71,7 +72,6 @@ export class ContactsComponent {
     this.viewModeController(2);
   }
   addContact() {
-    console.log('addContact()');
     if(this.item.firstName && this.item.lastName) {
       this.$http.post('/api/contacts', {
         firstName: this.item.firstName,
@@ -87,10 +87,10 @@ export class ContactsComponent {
         leadStatus: this.item.leadStatus,
         notes: this.item.notes,
         rating: this.item.rating,
-        agentName: this.item.agentname,
-        userCreated: this.username,
+        agentAssigned: this.item.agentAssigned,
+        userCreated: this.getCurrentUser().name,
         dateCreated: new Date(),
-        userModified: this.username,
+        userModified: this.getCurrentUser().name,
         dateModified: new Date(),
         active: true
       });
@@ -98,38 +98,17 @@ export class ContactsComponent {
   }
 
   deleteContactClick(contact) {
-    var deleteConfirmationModal = this.Modal.confirm.delete(function(contact) {
-      this.deleteContact(contact);
+    var confContact = contact;
+    var deleteConfirmationModal = this.Modal.confirm.delete(function() {
+      if(confContact) {
+        this.$http.put('/api/contacts/' + confContact._id, {
+          active: false
+        });
+      }
     });
 
     return deleteConfirmationModal(contact.firstName + ' ' + contact.lastName);    
   }
-
-  deleteContact(contact) {
-    if(contact) {
-      this.$http.post('/api/contacts/' + contact._id, {
-        firstName: contact.firstName,
-        lastName: contact.lastName,
-        companyName: contact.companyName,
-        dob: contact.dob,
-        sex: contact.sex,
-        email: contact.email,
-        phone: contact.phone,
-        occupation: contact.occupation,
-        income: contact.income,
-        leadType: contact.leadType,
-        leadStatus: contact.leadStatus,
-        notes: contact.notes,
-        rating: contact.rating,
-        agentName: contact.agentname,
-        userCreated: this.username,
-        dateCreated: new Date(),
-        userModified: this.username,
-        dateModified: new Date(),
-        active: false
-      });
-      }
-    }
 
   clearContact() {
     if (this.item) {
@@ -146,6 +125,7 @@ export class ContactsComponent {
       this.item.leadStatus = '';
       this.item.notes = '';
       this.item.rating = '';
+      this.item.agentAssigned = '';
     }
   }
 

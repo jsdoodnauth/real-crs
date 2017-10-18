@@ -1,0 +1,15 @@
+<div class='container'>
+  <div class='row'>
+    <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
+      <h2>Triage</h2>      
+        <div class="list-group">
+          <a href="#" class="list-group-item" ng-repeat="triageItem in triageCtrl.messageCollection">
+            <h4 class="list-group-item-heading">{{triageItem.contactName}}</h4>
+            <p class="list-group-item-text">{{triageItem.message}}
+            	<small>From: {{triageItem.agentName}}</small>
+            </p>
+          </a>
+        </div>
+    </div>
+  </div>
+</div>
