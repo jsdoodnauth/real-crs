@@ -7,10 +7,12 @@ import routes from './contacts.routes';
 
 export class ContactsComponent {
   /*@ngInject*/
-  constructor($http, $scope, socket, Auth, $filter) {
+  constructor($http, $scope, socket, Auth, $filter, Modal, $uibModal) {
     this.$http = $http;
     this.socket = socket;
     this.$filter = $filter;
+    this.Modal = Modal;
+    this.$uibModal = $uibModal;
     this.getCurrentUser = Auth.getCurrentUserSync;
     this.editMode = false;    
     this.viewModeController(1);
@@ -89,10 +91,45 @@ export class ContactsComponent {
         userCreated: this.username,
         dateCreated: new Date(),
         userModified: this.username,
-        dateModified: new Date()
+        dateModified: new Date(),
+        active: true
       });
     }
   }
+
+  deleteContactClick(contact) {
+    var deleteConfirmationModal = this.Modal.confirm.delete(function(contact) {
+      this.deleteContact(contact);
+    });
+
+    return deleteConfirmationModal(contact.firstName + ' ' + contact.lastName);    
+  }
+
+  deleteContact(contact) {
+    if(contact) {
+      this.$http.post('/api/contacts/' + contact._id, {
+        firstName: contact.firstName,
+        lastName: contact.lastName,
+        companyName: contact.companyName,
+        dob: contact.dob,
+        sex: contact.sex,
+        email: contact.email,
+        phone: contact.phone,
+        occupation: contact.occupation,
+        income: contact.income,
+        leadType: contact.leadType,
+        leadStatus: contact.leadStatus,
+        notes: contact.notes,
+        rating: contact.rating,
+        agentName: contact.agentname,
+        userCreated: this.username,
+        dateCreated: new Date(),
+        userModified: this.username,
+        dateModified: new Date(),
+        active: false
+      });
+      }
+    }
 
   clearContact() {
     if (this.item) {

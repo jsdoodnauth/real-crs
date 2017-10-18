@@ -17,6 +17,7 @@ import {
 } from './app.config';
 
 import _Auth from '../components/auth/auth.module';
+import Modal from '../components/modal/modal.service';
 import account from './account';
 import admin from './admin';
 import navbar from '../components/navbar/navbar.component';
@@ -30,7 +31,7 @@ import contacts from './contacts/contacts.component';
 import './app.scss';
 
 angular.module('realCrsApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
-  uiBootstrap, _Auth, account, admin, 'validation.match', navbar, footer, main, constants,
+  uiBootstrap, _Auth, Modal, account, admin, 'validation.match', navbar, footer, main, constants,
   socket, util, contacts
 ])
   .config(routeConfig)
