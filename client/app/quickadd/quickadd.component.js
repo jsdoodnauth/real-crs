@@ -7,63 +7,65 @@ import routes from './quickadd.routes';
 
 export class QuickaddComponent {
   /*@ngInject*/
-  constructor($http, $scope, Auth) {
+  constructor($http, $scope, Auth, $timeout) {
     this.$http = $http;
+    this.$timeout = $timeout;
     this.getCurrentUser = Auth.getCurrentUserSync;
-    this.contactCollection;
+    this.alerts = [];
   }
 
-  alerts = [
-    { type: 'danger', msg: 'Oh snap! Change a few things up and try submitting again.' },
-    { type: 'success', msg: 'Well done! You successfully read this important alert message.' }
-  ];
+  $onInit() {
+    this.$http.get('/api/contacts/names')
+      .then(response => {
+        this.contactCollection = response.data;
+      });
+  }
 
   addMessage() {
+    var item = this;
     if(this.inputMessage && this.getCurrentUser().name) {
-      console.log('ready: ' + this.inputMessage);
       this.$http.post('/api/messages', {
         message: this.inputMessage,
-        contactID: '',
-        contactName: this.inputName,
+        contactID: this.inputName._id,
+        contactName: this.inputName.name ? this.inputName.name : this.inputName,
         followup: this.inputFollowup,
-        agentID: '',
+        agentID: this.getCurrentUser()._id,
         agentName: this.getCurrentUser().name,
         isDone: false,
+        isNewContact: this.inputName.name ? false : true,
         userCreated: this.getCurrentUser().name,
         dateCreated: new Date(),
         userModified: this.getCurrentUser().name,
         dateModified: new Date()
       })
       .then(response => {
-        this.alerts.push({msg: 'Another alert!'});
+        this.toggleSuccess();
+        this.clearForm();
+      })
+      .catch(function (data) {
+        item.alerts.push({ type: 'danger', msg: 'Error sending message - ' + data.statusText});
       });
     }
   }
 
-  getContacts(val) {
-    if (!this.contactCollection) {
-      console.log('call');
-      this.$http.get('/api/contacts/filter')
-        .then(response => {
-          this.contactCollection = response.data;
-        });
-    }
-
-
-    /*
-    return this.$http.get('/api/contacts', {
-      params: {
-        address: val,
-        sensor: false
-      }
-    }).then(function(response){
-      return response.data.results.map(function(item){
-        return item.formatted_address;
-      });
-    });
-    */
+  clearForm() {
+    this.inputMessage = '';
+    this.inputName = '';
+    this.inputFollowup = '';
   }
 
+  toggleSuccess() {
+    var s = this;
+    this.isSuccess = 'success';
+    this.$timeout(function(){
+        s.isSuccess = '';
+        //s.alerts.push({ type: 'success', msg: 'Message sent successfully'});
+    }, 2500);
+  }
+
+  closeAlert() {
+    this.alerts = [];
+  }
 }
 
 export default angular.module('realCrsApp.quickadd', [uiRouter])

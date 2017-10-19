@@ -11,6 +11,7 @@ var MessageSchema = new mongoose.Schema({
   agentID: String,
   agentName: String,
   isDone: Boolean,
+  isNewContact: Boolean,
   userCreated: String,
   dateCreated: Date,
   userModified: String,

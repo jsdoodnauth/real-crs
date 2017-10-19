@@ -13,6 +13,7 @@ export class ContactsComponent {
     this.$filter = $filter;
     this.Modal = Modal;
     this.getCurrentUser = Auth.getCurrentUserSync;
+    this.isAdmin = Auth.isAdminSync;
     this.editMode = false;    
     this.viewModeController(1);
 
@@ -25,7 +26,8 @@ export class ContactsComponent {
     this.$http.get('/api/contacts')
       .then(response => {
         this.coll = response.data;
-        this.contactCollection = this.coll.filter((coll) => coll.active == true);
+        this.contactCollection = this.coll.filter((coll) => coll.active == true);        
+        if (this.isAdmin) { this.contactCollection = response.data; }
         this.socket.syncUpdates('contact', this.contactCollection);
       });
   }
@@ -41,6 +43,8 @@ export class ContactsComponent {
 
   editContact(contact) {
     if(this.item.firstName && this.item.lastName) {
+      var isActive = true;
+      if (this.isAdmin) { isActive = this.item.active; }
       this.$http.put('/api/contacts/'  + this.item._id, {
         firstName: this.item.firstName,
         lastName: this.item.lastName,
@@ -57,7 +61,8 @@ export class ContactsComponent {
         rating: this.item.rating,
         agentAssigned: this.item.agentAssigned,
         userModified: this.getCurrentUser().name,
-        dateModified: new Date()
+        dateModified: new Date(),
+        active: isActive
       })
       .then(response => {
         this.socket.syncUpdates('contact', this.contactCollection);

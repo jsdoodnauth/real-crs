@@ -1,42 +1,11 @@
-<style>
-  .typeahead-demo .custom-popup-wrapper {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1000;
-    display: none;
-    background-color: #f9f9f9;
-  }
-
-  .typeahead-demo .custom-popup-wrapper > .message {
-    padding: 10px 20px;
-    border-bottom: 1px solid #ddd;
-    color: #868686;
-  }
-
-  .typeahead-demo .custom-popup-wrapper > .dropdown-menu {
-    position: static;
-    float: none;
-    display: block;
-    min-width: 160px;
-    background-color: transparent;
-    border: none;
-    border-radius: 0;
-    box-shadow: none;
-  }
-</style>
-
-
 <div class='container'>
   <div class='row'>
     <div class='col-md-offset-2 col-lg-8 col-md-8 col-sm-12'>
       <h2>Quick Message</h2>
-      <div class="alert alert-success alert-dismissible" role="alert" ng-hide='true'>
-      	<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      	Message saved successfully 
-      </div>
+	  <div uib-alert ng-repeat="alert in quickaddCtrl.alerts" ng-class="'alert-' + (alert.type || 'warning')" close="quickaddCtrl.closeAlert($index)" dismiss-on-timeout='5000'>{{alert.msg}}</div>
+
       <div class='well'>
-        <form class="form-horizontal">
+        <form class="form-horizontal" ng-class="quickaddCtrl.isSuccess">
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputNotes">Message</label>
             <div class="col-md-10">
@@ -46,7 +15,8 @@
           <div class="form-group">
            <label  class="col-md-2 control-label" for="inputName">Contact</label>
             <div class="col-md-10">
-              <input type="text" class="form-control" id="inputName" ng-model="quickaddCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name">
+              <input type="text" class="form-control" id="inputName" ng-model="quickaddCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name" uib-typeahead="names as names.name for names in quickaddCtrl.contactCollection | filter:$viewValue | limitTo:8" autocomplete="off">
+
             </div>
           </div>
           <div class="form-group">
@@ -77,15 +47,9 @@
               <button type="submit" class="btn btn-primary pull-right" ng-click="quickaddCtrl.addMessage()">Send</button>
             </div>
           </div>
+          <svg class="checkmark" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 52 52"><circle class="checkmark__circle" cx="26" cy="26" r="25" fill="none"/><path class="checkmark__check" fill="none" d="M14.1 27.2l7.1 7.2 16.7-16.8"/></svg>
         </form>
       </div>
     </div>
   </div>
 </div>
-
-<h4>Name results</h4>
-    <input type="text" ng-model="asyncSelected" placeholder="Locations loaded via $http" uib-typeahead="address for address in quickaddCtrl.getContacts($viewValue)" typeahead-loading="loadingLocations" typeahead-no-results="noResults" class="form-control" >
-    <i ng-show="loadingLocations" class="glyphicon glyphicon-refresh"></i>
-    <div ng-show="noResults">
-      <i class="glyphicon glyphicon-remove"></i> No Results Found
-    </div>

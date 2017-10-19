@@ -1,8 +1,8 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
+ * GET    /api/contacts/filter        ->  filter
  * GET     /api/contacts              ->  index
  * POST    /api/contacts              ->  create
- * GET    /api/contacts/filter        ->  filter
  * GET     /api/contacts/:id          ->  show
  * PUT     /api/contacts/:id          ->  upsert
  * PATCH   /api/contacts/:id          ->  patch
@@ -119,11 +119,9 @@ export function destroy(req, res) {
 }
 
 // Gets a filterable list of Contacts
-export function filter(req, res) {
-  return Contact.find().exec()
-    .then(res => {
-      console.log('filter');
-      respondWithResult(res);    
-      })
+export function namesList(req, res) {
+  return Contact.aggregate([{ $match: { active: true }},
+                            { $project: {name : { $concat : [ "$firstName", " ", "$lastName"]}}}]).exec()
+    .then(respondWithResult(res))
     .catch(handleError(res));
 }

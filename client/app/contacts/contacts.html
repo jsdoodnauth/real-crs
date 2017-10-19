@@ -47,9 +47,9 @@
             </div>
           </div>
           <div class="form-group">
-            <label  class="col-md-2 control-label" for="inputCompany">Company</label>
+            <label  class="col-md-2 control-label" for="inputCompany">Company Name</label>
             <div class="col-md-10">
-            <input type="text" class="form-control" id="inputCompany" ng-model="contactsCtrl.item.Company" aria-describedby="Company" placeholder="Company Name">
+            <input type="text" class="form-control" id="inputCompany" ng-model="contactsCtrl.item.companyName" aria-describedby="Company Name" placeholder="Company Name">
             </div>
           </div>
           <div class="form-group">
@@ -88,7 +88,11 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputIncome">Income</label>
             <div class="col-md-10">
-            <input type="text" class="form-control" id="inputIncome" ng-model="contactsCtrl.item.income" aria-describedby="Income" placeholder="Income">
+              <div class="input-group">
+                <span class="input-group-addon">$</span>
+                <input type="text" class="form-control" id="inputIncome" ng-model="contactsCtrl.item.income" aria-describedby="Income" placeholder="Income">
+                <span class="input-group-addon">.00</span>
+              </div>
             </div>
           </div>
           <div class="form-group">
@@ -150,7 +154,19 @@
             <div class="col-md-10">
             <textarea rows="3" class="form-control" id="inputNotes" ng-model="contactsCtrl.item.notes" aria-describedby="Notes" placeholder="Notes"></textarea>
             </div>
-          </div>  
+          </div>
+
+          <div class="form-group" ng-if="contactsCtrl.isAdmin">
+            <label  class="col-md-2 control-label" for="inputActive">Active</label>
+            <div class="col-md-10">
+              <label class="radio-inline">
+                <input type="radio" name="inputActive" id="inputActive1" ng-model="contactsCtrl.item.active" ng-value="true"> Yes
+              </label>          
+              <label class="radio-inline">
+                <input type="radio" name="inputActive" id="inputActive2" ng-model="contactsCtrl.item.active" ng-value="false"> No
+              </label>
+            </div>
+          </div> 
           <div class="form-group">
             <div class="col-md-12">
               <div class='pull-right'>
