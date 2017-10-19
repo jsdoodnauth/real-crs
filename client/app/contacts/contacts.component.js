@@ -16,6 +16,7 @@ export class ContactsComponent {
     this.isAdmin = Auth.isAdminSync;
     this.editMode = false;    
     this.viewModeController(1);
+    this.relationshipCollection = [];
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('contact');
@@ -29,6 +30,10 @@ export class ContactsComponent {
         this.contactCollection = this.coll.filter((coll) => coll.active == true);        
         if (this.isAdmin) { this.contactCollection = response.data; }
         this.socket.syncUpdates('contact', this.contactCollection);
+      });
+    this.$http.get('/api/contacts/names')
+      .then(response => {
+        this.contactNameCollection = response.data;
       });
   }
   editContactForm(contact) {
@@ -104,6 +109,15 @@ export class ContactsComponent {
         this.viewModeController(1);
       });
     }
+  }
+
+  addRelationship() {
+    console.log('addRelationship()');    
+    this.relationshipCollection.push( {contactID: this.rel.relationshipName._id, contactName: this.rel.relationshipName.name, relationshipType: this.rel.relationshipType});
+    console.log(this.relationshipCollection);
+
+    this.rel.relationshipName = "";
+    this.rel.relationshipType = "";
   }
 
   deleteContactClick(contact) {

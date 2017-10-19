@@ -61,7 +61,7 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputSex">Sex</label>
             <div class="col-md-10">
-            <select class="form-control span3" id="inputSex" ng-model="contactsCtrl.item.sex">
+            <select class="form-control" id="inputSex" ng-model="contactsCtrl.item.sex">
               <option>Male</option>
               <option>Female</option>
             </select>
@@ -96,9 +96,28 @@
             </div>
           </div>
           <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputRelationshipName">Relationships</label>            
+            <div class="col-md-10">
+                <div class="">
+                  <div ng-repeat="relItem in contactsCtrl.relationshipCollection">
+                    {{ relItem.contactName }} - {{ relItem.relationshipType }}
+                  </div>
+                </div>
+                <input type="text" class="form-control col-md-8" id="inputRelationshipName" ng-model="contactsCtrl.rel.relationshipName" aria-describedby="Name" placeholder="First and Last Name" uib-typeahead="names as names.name for names in contactsCtrl.contactNameCollection | filter:$viewValue | limitTo:8" autocomplete="off">
+                <select class="form-control col-md-3" id="inputRelationshipType" ng-model="contactsCtrl.rel.relationshipType">
+                  <option>Spouse</option>
+                  <option>Family</option>
+                  <option>Friend</option>
+                  <option>Co-worker</option>
+                  <option>Business</option>
+                </select>
+                <button type="button" class="btn btn-primary col-md-1 btn-sm pull-right glyphicon glyphicon-plus" ng-click="contactsCtrl.addRelationship()"></button>
+            </div>
+          </div>
+          <div class="form-group">
             <label  class="col-md-2 control-label" for="inputLeadType">Lead Type</label>
             <div class="col-md-10">
-            <select class="form-control span3" id="inputLeadType" ng-model="contactsCtrl.item.leadType">
+            <select class="form-control" id="inputLeadType" ng-model="contactsCtrl.item.leadType">
               <option>Buyer</option>
               <option>Seller</option>
               <option>Rent</option>
@@ -110,7 +129,7 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputLeadStatus">Lead Status</label>
             <div class="col-md-10">
-            <select class="form-control span3" id="inputLeadStatus" ng-model="contactsCtrl.item.leadStatus">
+            <select class="form-control" id="inputLeadStatus" ng-model="contactsCtrl.item.leadStatus">
               <option>New</option>
               <option>Qualify</option>
               <option>Watch</option>
@@ -124,7 +143,7 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputAgentAssigned">Agent Assigned</label>
             <div class="col-md-10">
-            <select class="form-control span3" id="inputAgentAssigned" ng-model="contactsCtrl.item.agentAssigned">
+            <select class="form-control" id="inputAgentAssigned" ng-model="contactsCtrl.item.agentAssigned">
               <option>Hussein Kabani</option>
             </select>
             </div>
