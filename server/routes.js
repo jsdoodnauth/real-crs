@@ -10,6 +10,7 @@ import path from 'path';
 export default function(app) {
   // Insert routes below
   app.use('/api/messages', require('./api/message'));
+  app.use('/api/contacts/filter', require('./api/contact'));
   app.use('/api/contacts', require('./api/contact'));
   app.use('/api/things', require('./api/thing'));
   app.use('/api/users', require('./api/user'));
