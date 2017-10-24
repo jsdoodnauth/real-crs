@@ -98,9 +98,10 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputRelationshipName">Relationships</label>            
             <div class="col-md-10">
-                <div class="">
+                <div class="contact-relationship-container">
                   <div ng-repeat="relItem in contactsCtrl.relationshipCollection">
-                    {{ relItem.contactName }} - {{ relItem.relationshipType }}
+                    {{ contactsCtrl.getRelationshipNamebyID(relItem.connection, contactsCtrl.item._id) }} - {{ relItem.relationshipType }}
+                    <a href='#' class="glyphicon glyphicon-remove" ng-click="contactsCtrl.removeRelationship($index)"></a>
                   </div>
                 </div>
                 <input type="text" class="form-control col-md-8" id="inputRelationshipName" ng-model="contactsCtrl.rel.relationshipName" aria-describedby="Name" placeholder="First and Last Name" uib-typeahead="names as names.name for names in contactsCtrl.contactNameCollection | filter:$viewValue | limitTo:8" autocomplete="off">

@@ -34,7 +34,7 @@ export class ContactsComponent {
     this.$http.get('/api/contacts/names')
       .then(response => {
         this.contactNameCollection = response.data;
-      });
+      });  
   }
   editContactForm(contact) {
     this.$http.get('/api/contacts/' + contact._id)
@@ -43,6 +43,7 @@ export class ContactsComponent {
         this.item.dob = this.$filter('date')(this.item.dob, 'yyyy-MM-dd');
         this.editMode = true;
         this.viewModeController(2);
+        this.getRelationships(this.item._id);
       });
   }  
 
@@ -62,7 +63,7 @@ export class ContactsComponent {
         income: this.item.income,
         leadType: this.item.leadType,
         leadStatus: this.item.leadStatus,
-        notes: this.item.notes,
+        notes: (this.item.notes) ? this.item.notes.replace(/\\n/g, "<br />") : this.item.notes,
         rating: this.item.rating,
         agentAssigned: this.item.agentAssigned,
         userModified: this.getCurrentUser().name,
@@ -70,8 +71,8 @@ export class ContactsComponent {
         active: isActive
       })
       .then(response => {
-        this.socket.syncUpdates('contact', this.contactCollection);
-        this.viewModeController(1);
+        this.updateRelationship();
+        //this.returnToList();
       });
     }
   }
@@ -95,7 +96,7 @@ export class ContactsComponent {
         income: this.item.income,
         leadType: this.item.leadType,
         leadStatus: this.item.leadStatus,
-        notes: this.item.notes,
+        notes: (this.item.notes) ? this.item.notes.replace(/\\n/g, "<br />") : this.item.notes,
         rating: this.item.rating,
         agentAssigned: this.item.agentAssigned,
         userCreated: this.getCurrentUser().name,
@@ -105,19 +106,54 @@ export class ContactsComponent {
         active: true
       })
       .then(response => {
-        this.socket.syncUpdates('contact', this.contactCollection);
-        this.viewModeController(1);
+        this.updateRelationship();
+        //this.returnToList();        
       });
     }
   }
 
+  returnToList() {
+    this.socket.syncUpdates('contact', this.contactCollection);
+    this.viewModeController(1);
+  }
+
   addRelationship() {
-    console.log('addRelationship()');    
-    this.relationshipCollection.push( {contactID: this.rel.relationshipName._id, contactName: this.rel.relationshipName.name, relationshipType: this.rel.relationshipType});
+    console.log('addRelationship() -->');    
+    var id = (this.item._id) ? this.item._id : "";
+    this.relationshipCollection.push( {
+      primaryID: id, 
+      linkID: this.rel.relationshipName._id, 
+      linkName: this.rel.relationshipName.name, 
+      relationshipType: this.rel.relationshipType,
+      connection:
+        [{_id: id}, {_id: this.rel.relationshipName._id}]      
+    });
     console.log(this.relationshipCollection);
 
     this.rel.relationshipName = "";
     this.rel.relationshipType = "";
+  }
+
+  removeRelationship(index) {
+    this.relationshipCollection.splice(index, 1);    
+  }
+
+  getRelationships(id) {
+    console.log(id);
+    this.$http.get('/api/contactRelationships/' + id)
+      .then(response => {
+        console.log(response);
+        this.relationshipCollection = response.data;
+      });
+  }
+
+  updateRelationship() {
+    this.$http.post('/api/contactRelationships', {
+      data: this.relationshipCollection
+    })
+    .then(response => {
+      this.returnToList();        
+    });
   }
 
   deleteContactClick(contact) {
@@ -131,6 +167,15 @@ export class ContactsComponent {
     });
 
     return deleteConfirmationModal(contact.firstName + ' ' + contact.lastName);    
+  }
+
+  getRelationshipNamebyID(id, selfID) {
+    if (selfID) {
+      var relID = (selfID===id[0]) ? id[1] : id[0];
+      var rel = this.$filter('filter')(this.contactNameCollection, {_id: relID}, true);
+      if (rel.length) return rel[0].name;
+    }
+    return;
   }
 
   clearContact() {
