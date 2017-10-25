@@ -12,7 +12,7 @@ var TodoSchema = new mongoose.Schema({
   dueDate: Date,
   userID: String,
   userName: String,
-  isDone: Boolean
+  isDone: Boolean,
   userCreated: String,
   dateCreated: Date,
   userModified: String,
