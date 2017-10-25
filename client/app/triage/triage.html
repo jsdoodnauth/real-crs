@@ -4,15 +4,15 @@
       <h2>Triage</h2>        
       <div class="panel panel-default"  ng-repeat="triageItem in triageCtrl.messageCollection">
         <div class="panel-heading">
-          <h3 class="panel-title"><span class="label label-info" ng-show="triageItem.isNewContact">New</span> {{triageItem.contactName}} <small class='pull-right'>From {{triageItem.agentName}} at {{triageItem.dateCreated}}</small></h3>
+          <h3 class="panel-title"><span class="label label-info" ng-show="triageItem.isNewContact">New</span> {{triageItem.contactName}} <small class='pull-right'><strong>{{triageItem.agentName}}</strong> sent this <i>{{ triageCtrl.getFuzzyDate(triageItem.dateCreated) }}</i></small></h3>
         </div>
         <div class="panel-body">
           {{triageItem.message}}
         </div>
         <div class="panel-footer">
           <div style='text-align:right;'>
-            <button type="submit" class="btn btn-success" ng-click="triageCtrl.openContact(triageItem.contactID)">Open Contact</button>
-            <button type="button" class="btn btn-primary" ng-click="triageCtrl.closeItem(triageItem)">Mark as Done</button>
+            <button type="submit" class="btn btn-success btn-xs" ng-click="triageCtrl.openContact(triageItem.contactID)">Open Contact</button>
+            <button type="button" class="btn btn-primary btn-xs" ng-click="triageCtrl.closeItem(triageItem)">Mark as Done</button>
           </div>
         </div>
       </div>

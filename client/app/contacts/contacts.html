@@ -68,6 +68,12 @@
             </div>
           </div>
           <div class="form-group">
+            <label  class="col-md-2 control-label" for="inputAddress">Address</label>
+            <div class="col-md-10">
+            <input type="text" class="form-control" id="inputAddress" ng-model="contactsCtrl.item.address" aria-describedby="Address" placeholder="Address" uib-typeahead="addresses.address for addresses in contactsCtrl.addressCollection | filter:$viewValue | limitTo:8" autocomplete="off">
+            </div>
+          </div>
+          <div class="form-group">
             <label  class="col-md-2 control-label" for="inputEmail">Email</label>
             <div class="col-md-10">
             <input type="email" class="form-control" id="inputEmail" ng-model="contactsCtrl.item.email" aria-describedby="Email" placeholder="Email">
@@ -101,7 +107,7 @@
                 <div class="contact-relationship-container">
                   <div ng-repeat="relItem in contactsCtrl.relationshipCollection">
                     {{ contactsCtrl.getRelationshipNamebyID(relItem.connection, contactsCtrl.item._id) }} - {{ relItem.relationshipType }}
-                    <a href='#' class="glyphicon glyphicon-remove" ng-click="contactsCtrl.removeRelationship($index)"></a>
+                    <a href='#' class="glyphicon glyphicon-remove" ng-click="contactsCtrl.removeRelationship($index, relItem._id)"></a>
                   </div>
                 </div>
                 <input type="text" class="form-control col-md-8" id="inputRelationshipName" ng-model="contactsCtrl.rel.relationshipName" aria-describedby="Name" placeholder="First and Last Name" uib-typeahead="names as names.name for names in contactsCtrl.contactNameCollection | filter:$viewValue | limitTo:8" autocomplete="off">

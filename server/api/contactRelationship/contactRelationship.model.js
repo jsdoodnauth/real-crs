@@ -4,11 +4,8 @@ import mongoose from 'mongoose';
 import {registerEvents} from './contactRelationship.events';
 
 var ContactRelationshipSchema = new mongoose.Schema({
-  primaryID: String,
-  linkID: String,
-  linkName: String,
-  relationshipType: String,
-  connection: [{ "type" : mongoose.Schema.Types.ObjectId, 'ref': 'Contact' }]
+  connection: [{ "type" : mongoose.Schema.Types.ObjectId, 'ref': 'Contact' }],
+  relationshipType: String
 });
 
 registerEvents(ContactRelationshipSchema);

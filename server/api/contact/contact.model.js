@@ -9,6 +9,7 @@ var ContactSchema = new mongoose.Schema({
   companyName: String,
   dob: Date,
   sex: String,
+  address: String,
   email: String,
   phone: String,
   occupation: String,

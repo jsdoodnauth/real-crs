@@ -29,12 +29,14 @@ import socket from '../components/socket/socket.service';
 import contacts from './contacts/contacts.component';
 import quickadd from './quickadd/quickadd.component';
 import triage from './triage/triage.component';
+import todo from './todo/todo.component';
+
 
 import './app.scss';
 
 angular.module('realCrsApp', [ngCookies, ngResource, ngSanitize, 'btford.socket-io', uiRouter,
   uiBootstrap, _Auth, Modal, account, admin, 'validation.match', navbar, footer, main, constants,
-  socket, util, contacts, quickadd, triage
+  socket, util, contacts, quickadd, triage, todo
 ])
   .config(routeConfig)
   .run(function($rootScope, $location, Auth) {

@@ -16,6 +16,7 @@ function onConnect(socket) {
   });
 
   // Insert sockets below
+  require('../api/todo/todo.socket').register(socket);
   require('../api/contactRelationship/contactRelationship.socket').register(socket);
   require('../api/message/message.socket').register(socket);
   require('../api/contact/contact.socket').register(socket);

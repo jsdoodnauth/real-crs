@@ -1,18 +1,15 @@
 'use strict';
 
 var express = require('express');
-var controller = require('./contact.controller');
+var controller = require('./todo.controller');
 
 var router = express.Router();
 
 router.get('/', controller.index);
-router.get('/names/', controller.namesList);
-router.get('/address/', controller.addressList);
 router.get('/:id', controller.show);
 router.post('/', controller.create);
 router.put('/:id', controller.upsert);
 router.patch('/:id', controller.patch);
 router.delete('/:id', controller.destroy);
-
 
 module.exports = router;

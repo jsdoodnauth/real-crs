@@ -111,8 +111,11 @@ export function patch(req, res) {
 
 // Deletes a ContactRelationship from the DB
 export function destroy(req, res) {
-  return ContactRelationship.findById(req.params.id).exec()
-    .then(handleEntityNotFound(res))
-    .then(removeEntity(res))
+  var arr = (req.params.id).split(",")
+  console.log(arr);
+  return ContactRelationship.deleteMany({ _id: {$in: arr }})
+ //   .then(handleEntityNotFound(res))
+//    .then(removeEntity(res))
+    .then(() => {res.status(204).end(); })
     .catch(handleError(res));
 }

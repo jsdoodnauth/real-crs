@@ -17,6 +17,7 @@ export class ContactsComponent {
     this.editMode = false;    
     this.viewModeController(1);
     this.relationshipCollection = [];
+    this.deleteRelationship = [];
 
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('contact');
@@ -35,6 +36,11 @@ export class ContactsComponent {
       .then(response => {
         this.contactNameCollection = response.data;
       });  
+    this.$http.get('/api/contacts/address')
+      .then(response => {
+        console.log(response.data);
+        this.addressCollection = response.data;
+      }); 
   }
   editContactForm(contact) {
     this.$http.get('/api/contacts/' + contact._id)
@@ -57,6 +63,7 @@ export class ContactsComponent {
         companyName: this.item.companyName,
         dob: this.item.dob,
         sex: this.item.sex,
+        address: this.item.address,
         email: this.item.email,
         phone: this.item.phone,
         occupation: this.item.occupation,
@@ -90,6 +97,7 @@ export class ContactsComponent {
         companyName: this.item.companyName,
         dob: this.item.dob,
         sex: this.item.sex,
+        address: this.item.address,
         email: this.item.email,
         phone: this.item.phone,
         occupation: this.item.occupation,
@@ -113,6 +121,8 @@ export class ContactsComponent {
   }
 
   returnToList() {
+    this.relationshipCollection = [];
+    this.deleteRelationship = [];
     this.socket.syncUpdates('contact', this.contactCollection);
     this.viewModeController(1);
   }
@@ -121,12 +131,9 @@ export class ContactsComponent {
     console.log('addRelationship() -->');    
     var id = (this.item._id) ? this.item._id : "";
     this.relationshipCollection.push( {
-      primaryID: id, 
-      linkID: this.rel.relationshipName._id, 
-      linkName: this.rel.relationshipName.name, 
-      relationshipType: this.rel.relationshipType,
       connection:
-        [{_id: id}, {_id: this.rel.relationshipName._id}]      
+        [{_id: id}, {_id: this.rel.relationshipName._id}],
+      relationshipType: this.rel.relationshipType
     });
     console.log(this.relationshipCollection);
 
@@ -134,26 +141,73 @@ export class ContactsComponent {
     this.rel.relationshipType = "";
   }
 
-  removeRelationship(index) {
-    this.relationshipCollection.splice(index, 1);    
+  removeRelationship(index, id) {
+    if (id.length) {
+      this.deleteRelationship.push(id);
+    }
+    this.relationshipCollection.splice(index, 1);
   }
 
   getRelationships(id) {
-    console.log(id);
     this.$http.get('/api/contactRelationships/' + id)
       .then(response => {
-        console.log(response);
+        console.log('getRelationships: ');
+        console.log(response.data);
         this.relationshipCollection = response.data;
       });
   }
 
   updateRelationship() {
-    this.$http.post('/api/contactRelationships', {
-      data: this.relationshipCollection
-    })
-    .then(response => {
-      this.returnToList();        
-    });
+    var addRelationshipList = this.relationshipCollection.filter(this.filterOutByID);
+    if (addRelationshipList.length) {
+      this.$http.post('/api/contactRelationships', {
+        data: addRelationshipList
+      })
+      .then(response => {
+        this.removeRelationships();
+      });
+    }
+    else {
+      this.removeRelationships();
+    }
+  }
+
+  removeRelationships() {
+    if (this.deleteRelationship.length) {
+      this.$http.delete('/api/contactRelationships/' + this.deleteRelationship, {
+        data: this.deleteRelationship
+      })
+      .then(response => {
+        this.returnToList();        
+      });
+    }
+    else {
+      return this.returnToList();  
+    }
+     
+  }
+
+  filterOutByID(item) {
+    return (item._id) ? false : true 
+  }
+
+  getRelationshipNamebyID(id, selfID) {
+    var id1 = id[0]._id;
+    var id2 = id[1]._id;
+    if (id[0].length) {
+      var id1 = id[0];
+      var id2 = id[1];
+    }
+
+    if (selfID) {
+      var relID = (selfID===id1) ? id2 : id1;
+      var rel = this.$filter('filter')(this.contactNameCollection, {_id: relID}, true);
+      if (rel.length) {
+        return rel[0].name;
+      }
+    }
+
+    return;
   }
 
   deleteContactClick(contact) {
@@ -167,15 +221,6 @@ export class ContactsComponent {
     });
 
     return deleteConfirmationModal(contact.firstName + ' ' + contact.lastName);    
-  }
-
-  getRelationshipNamebyID(id, selfID) {
-    if (selfID) {
-      var relID = (selfID===id[0]) ? id[1] : id[0];
-      var rel = this.$filter('filter')(this.contactNameCollection, {_id: relID}, true);
-      if (rel.length) return rel[0].name;
-    }
-    return;
   }
 
   clearContact() {

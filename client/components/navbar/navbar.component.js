@@ -19,6 +19,10 @@ export class NavbarComponent {
   {
     title: 'Contacts',
     state: 'contacts'
+  },
+  {
+    title: 'Todo',
+    state: 'todo'
   }];
 
   isCollapsed = true;

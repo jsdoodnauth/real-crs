@@ -1,18 +1,17 @@
 /**
  * Using Rails-like standard naming convention for endpoints.
- * GET    /api/contacts/filter        ->  filter
- * GET     /api/contacts              ->  index
- * POST    /api/contacts              ->  create
- * GET     /api/contacts/:id          ->  show
- * PUT     /api/contacts/:id          ->  upsert
- * PATCH   /api/contacts/:id          ->  patch
- * DELETE  /api/contacts/:id          ->  destroy
+ * GET     /api/todos              ->  index
+ * POST    /api/todos              ->  create
+ * GET     /api/todos/:id          ->  show
+ * PUT     /api/todos/:id          ->  upsert
+ * PATCH   /api/todos/:id          ->  patch
+ * DELETE  /api/todos/:id          ->  destroy
  */
 
 'use strict';
 
 import jsonpatch from 'fast-json-patch';
-import Contact from './contact.model';
+import Todo from './todo.model';
 
 function respondWithResult(res, statusCode) {
   statusCode = statusCode || 200;
@@ -65,71 +64,55 @@ function handleError(res, statusCode) {
   };
 }
 
-// Gets a list of Contacts
+// Gets a list of Todos
 export function index(req, res) {
-  return Contact.find().exec()
+  return Todo.find().exec()
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Gets a single Contact from the DB
+// Gets a single Todo from the DB
 export function show(req, res) {
-  return Contact.findById(req.params.id).exec()
+  return Todo.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Creates a new Contact in the DB
+// Creates a new Todo in the DB
 export function create(req, res) {
-  return Contact.create(req.body)
+  return Todo.create(req.body)
     .then(respondWithResult(res, 201))
     .catch(handleError(res));
 }
 
-// Upserts the given Contact in the DB at the specified ID
+// Upserts the given Todo in the DB at the specified ID
 export function upsert(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Contact.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
+  return Todo.findOneAndUpdate({_id: req.params.id}, req.body, {new: true, upsert: true, setDefaultsOnInsert: true, runValidators: true}).exec()
 
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Updates an existing Contact in the DB
+// Updates an existing Todo in the DB
 export function patch(req, res) {
   if(req.body._id) {
     Reflect.deleteProperty(req.body, '_id');
   }
-  return Contact.findById(req.params.id).exec()
+  return Todo.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(patchUpdates(req.body))
     .then(respondWithResult(res))
     .catch(handleError(res));
 }
 
-// Deletes a Contact from the DB
+// Deletes a Todo from the DB
 export function destroy(req, res) {
-  return Contact.findById(req.params.id).exec()
+  return Todo.findById(req.params.id).exec()
     .then(handleEntityNotFound(res))
     .then(removeEntity(res))
-    .catch(handleError(res));
-}
-
-// Gets a filterable list of Contacts
-export function namesList(req, res) {
-  return Contact.aggregate([{ $match: { active: true }},
-                            { $project: {name : { $concat : [ "$firstName", " ", "$lastName"]}}}]).exec()
-    .then(respondWithResult(res))
-    .catch(handleError(res));
-}
-
-// Gets a filterable list of Contacts
-export function addressList(req, res) {
-  return Contact.aggregate([{ $match: { active: true, address: {"$exists": true, "$ne": null} }},
-                            { $project : { address : "$address"}}]).exec()
-    .then(respondWithResult(res))
     .catch(handleError(res));
 }
