@@ -8,7 +8,7 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputTask">Task</label>
             <div class="col-md-10">
-            <input type="text" class="form-control" id="inputTask" ng-model="todoCtrl.item.task" aria-describedby="Task" placeholder="Task">
+            <input type="text" class="form-control" id="inputTask" ng-model="todoCtrl.task" aria-describedby="Task" placeholder="Task">
             </div>
           </div>
           <div class="form-group">
@@ -51,7 +51,7 @@
           <div class="form-group">
             <label  class="col-md-2 control-label" for="inputUser">Assign to</label>
             <div class="col-md-10">
-              <input type="text" class="form-control col-md-7" id="inputUser" ng-model="todoCtrl.inputName" aria-describedby="Name" placeholder="First and Last Name" uib-typeahead="names as names.name for names in todoCtrl.contactCollection | filter:$viewValue | limitTo:8" autocomplete="off">
+              <input type="text" class="form-control col-md-7" id="inputUser" ng-model="todoCtrl.inputUsername" aria-describedby="Name" placeholder="User Name" uib-typeahead="names as names.name for names in todoCtrl.contactCollection | filter:$viewValue | limitTo:8" autocomplete="off">
             </div>
           </div>
           <div class="form-group">

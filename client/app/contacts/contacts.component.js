@@ -31,6 +31,10 @@ export class ContactsComponent {
         if (this.isAdmin()) { this.contactCollection = response.data; }
         this.socket.syncUpdates('contact', this.contactCollection);
       });
+    this.initFields();
+  }
+
+  initFields() {    
     this.$http.get('/api/contacts/names')
       .then(response => {
         this.contactNameCollection = response.data;
@@ -50,6 +54,9 @@ export class ContactsComponent {
         this.contactCollection[i].dob = contact.dob;
         this.contactCollection[i].sex = contact.sex;
         this.contactCollection[i].address = contact.address;
+        this.contactCollection[i].city = contact.city;
+        this.contactCollection[i].province = contact.province;
+        this.contactCollection[i].postalcode = contact.postalcode;
         this.contactCollection[i].email = contact.email;
         this.contactCollection[i].phone = contact.phone;
         this.contactCollection[i].occupation = contact.occupation;
@@ -71,6 +78,7 @@ export class ContactsComponent {
         this.item.dob = this.$filter('date')(this.item.dob, 'yyyy-MM-dd');
         this.editMode = true;
         this.viewModeController(2);
+        this.initFields();
         this.getRelationships(this.item._id);
       });
   }  
@@ -87,6 +95,9 @@ export class ContactsComponent {
         dob: this.item.dob,
         sex: this.item.sex,
         address: this.item.address,
+        city: this.item.city,
+        province: this.item.province,
+        postalcode: this.item.postalcode,
         email: this.item.email,
         phone: this.item.phone,
         occupation: this.item.occupation,
@@ -122,6 +133,9 @@ export class ContactsComponent {
         dob: this.item.dob,
         sex: this.item.sex,
         address: this.item.address,
+        city: this.item.city,
+        province: this.item.province,
+        postalcode: this.item.postalcode,
         email: this.item.email,
         phone: this.item.phone,
         occupation: this.item.occupation,
@@ -147,7 +161,6 @@ export class ContactsComponent {
   returnToList() {
     this.relationshipCollection = [];
     this.deleteRelationship = [];
-    this.socket.syncUpdates('contact', this.contactCollection);
     this.viewModeController(1);
   }
 
@@ -255,6 +268,10 @@ export class ContactsComponent {
       this.item.companyName = '';
       this.item.dob = '';
       this.item.sex = '';
+      this.item.address = '';
+      this.item.city = '';
+      this.item.province = '';
+      this.item.postalcode = '';
       this.item.email = '';
       this.item.phone = '';
       this.item.occupation = '';

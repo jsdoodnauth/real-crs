@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('triage', {
       url: '/triage',
-      template: '<triage></triage>'
+      template: '<triage></triage>',
+      authenticate: true
     });
 }

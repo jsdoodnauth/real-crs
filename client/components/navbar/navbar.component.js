@@ -10,11 +10,13 @@ export class NavbarComponent {
   },
   {
     title: 'Quick Note',
-    state: 'quickadd'
+    state: 'quickadd',
+    admin: true
   },
   {
     title: 'Triage',
-    state: 'triage'
+    state: 'triage',
+    admin: true
   },
   {
     title: 'Contacts',
@@ -22,7 +24,8 @@ export class NavbarComponent {
   },
   {
     title: 'Todo',
-    state: 'todo'
+    state: 'todo',
+    admin: true
   }];
 
   isCollapsed = true;

@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('contacts', {
       url: '/contacts',
-      template: '<contacts></contacts>'
+      template: '<contacts></contacts>',
+      authenticate: true
     });
 }

@@ -5,6 +5,7 @@ export default function($stateProvider) {
   $stateProvider
     .state('quickadd', {
       url: '/quickadd',
-      template: '<quickadd></quickadd>'
+      template: '<quickadd></quickadd>',
+      authenticate: true
     });
 }

@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import {registerEvents} from './todo.events';
 
 var TodoSchema = new mongoose.Schema({
-  title: String,
+  taskName: String,
   message: String,
   contactID: String,
   contactName: String,
