@@ -18,7 +18,6 @@ export class ContactsComponent {
     this.viewModeController(1);
     this.relationshipCollection = [];
     this.deleteRelationship = [];
-
     $scope.$on('$destroy', function() {
       socket.unsyncUpdates('contact');
     });
@@ -29,7 +28,7 @@ export class ContactsComponent {
       .then(response => {
         this.coll = response.data;
         this.contactCollection = this.coll.filter((coll) => coll.active == true);        
-        if (this.isAdmin) { this.contactCollection = response.data; }
+        if (this.isAdmin()) { this.contactCollection = response.data; }
         this.socket.syncUpdates('contact', this.contactCollection);
       });
     this.$http.get('/api/contacts/names')
@@ -38,10 +37,33 @@ export class ContactsComponent {
       });  
     this.$http.get('/api/contacts/address')
       .then(response => {
-        console.log(response.data);
         this.addressCollection = response.data;
       }); 
   }
+
+  updateContactCollection(contact) {
+    for (var i = this.contactCollection.length - 1; i >= 0; i--) {
+      if (this.contactCollection[i]._id === contact._id) {
+        this.contactCollection[i].firstName = contact.firstName;
+        this.contactCollection[i].lastName = contact.lastName;
+        this.contactCollection[i].companyName = contact.companyName;
+        this.contactCollection[i].dob = contact.dob;
+        this.contactCollection[i].sex = contact.sex;
+        this.contactCollection[i].address = contact.address;
+        this.contactCollection[i].email = contact.email;
+        this.contactCollection[i].phone = contact.phone;
+        this.contactCollection[i].occupation = contact.occupation;
+        this.contactCollection[i].income = contact.income;
+        this.contactCollection[i].leadType = contact.leadType;
+        this.contactCollection[i].leadStatus = contact.leadStatus;
+        this.contactCollection[i].notes = contact.notes;
+        this.contactCollection[i].rating = contact.rating;
+        this.contactCollection[i].agentAssigned = contact.agentAssigned;
+        return;
+      }
+    };
+  }
+
   editContactForm(contact) {
     this.$http.get('/api/contacts/' + contact._id)
       .then(response => {
@@ -54,9 +76,10 @@ export class ContactsComponent {
   }  
 
   editContact(contact) {
+    var editContactItem = contact;
     if(this.item.firstName && this.item.lastName) {
       var isActive = true;
-      if (this.isAdmin) { isActive = this.item.active; }
+      if (this.isAdmin()) { isActive = this.item.active; }
       this.$http.put('/api/contacts/'  + this.item._id, {
         firstName: this.item.firstName,
         lastName: this.item.lastName,
@@ -78,6 +101,7 @@ export class ContactsComponent {
         active: isActive
       })
       .then(response => {
+        this.updateContactCollection(editContactItem);
         this.updateRelationship();
         //this.returnToList();
       });
@@ -128,15 +152,13 @@ export class ContactsComponent {
   }
 
   addRelationship() {
-    console.log('addRelationship() -->');    
     var id = (this.item._id) ? this.item._id : "";
     this.relationshipCollection.push( {
       connection:
         [{_id: id}, {_id: this.rel.relationshipName._id}],
       relationshipType: this.rel.relationshipType
     });
-    console.log(this.relationshipCollection);
-
+    
     this.rel.relationshipName = "";
     this.rel.relationshipType = "";
   }
@@ -151,8 +173,6 @@ export class ContactsComponent {
   getRelationships(id) {
     this.$http.get('/api/contactRelationships/' + id)
       .then(response => {
-        console.log('getRelationships: ');
-        console.log(response.data);
         this.relationshipCollection = response.data;
       });
   }
@@ -212,10 +232,15 @@ export class ContactsComponent {
 
   deleteContactClick(contact) {
     var confContact = contact;
+    var self = this;
     var deleteConfirmationModal = this.Modal.confirm.delete(function() {
       if(confContact) {
-        this.$http.put('/api/contacts/' + confContact._id, {
+        self.$http.put('/api/contacts/' + confContact._id, {
           active: false
+        })
+        .then(response => {          
+          var index = self.contactCollection.indexOf(confContact);
+          self.contactCollection.splice(index,1);
         });
       }
     });
